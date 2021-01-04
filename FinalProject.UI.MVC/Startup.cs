@@ -1,8 +1,6 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartupAttribute(typeof(FinalProject.UI.MVC.Startup))]
-namespace FinalProject.UI.MVC
+namespace IdentitySample
 {
     public partial class Startup
     {
