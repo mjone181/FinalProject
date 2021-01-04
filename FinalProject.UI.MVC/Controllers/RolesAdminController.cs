@@ -1,4 +1,4 @@
-﻿using IdentitySample.Models;
+﻿using FinalProject.UI.MVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
 
-namespace IdentitySample.Controllers
+namespace FinalProject.UI.MVC.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller
