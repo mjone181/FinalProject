@@ -288,10 +288,10 @@
     <Content Include="_Archive\templated-swarming\fonts\fontawesome-webfont.woff" />
     <Content Include="_Archive\templated-swarming\fonts\FontAwesome.otf" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Reservations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
