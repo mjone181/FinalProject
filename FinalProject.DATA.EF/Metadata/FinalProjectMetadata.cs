@@ -7,37 +7,6 @@ using System.Threading.Tasks;
 
 namespace FinalProject.DATA.EF.Metadata
 {
-    #region AspNetUser
-
-    //Metadata for AspNetUser
-    public class AspNetUserMetadata
-    {  
-        //Foreign Key        
-        public string Id { get; set; }
-
-        [Display(Name = "Email:")]                
-        [RegularExpression("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$", ErrorMessage = "X")]
-        public string Email { get; set; }
-        public bool EmailConfirmed { get; set; }  
-        public string PasswordHash { get; set; }     
-        public string SecurityStamp { get; set; }
-
-        [Display(Name = "Phone Number:")]               
-        [RegularExpression("^[2-9]\\d{2}-\\d{3}-\\d{4}$", ErrorMessage = "X")]
-        public string PhoneNumber { get; set; }
-        public bool PhoneNumberConfirmed { get; set; }
-        public bool TwoFactorEnabled { get; set; }
-
-        [DisplayFormat(NullDisplayText = "[-N/A-]")]
-        public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
-        public bool LockoutEnabled { get; set; }       
-        public int AccessFailedCount { get; set; }
-        
-        [Display(Name = "User Name:")]
-        public string UserName { get; set; }
-    }    
-    #endregion
-
     #region Location
 
     //Metadata for Location

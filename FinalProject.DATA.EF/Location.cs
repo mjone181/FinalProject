@@ -17,7 +17,7 @@ namespace FinalProject.DATA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Location()
         {
-            this.Reservations = new HashSet<Reservation>();
+            this.Reservations = new HashSet<Reservations>();
         }
     
         public int LocationId { get; set; }
@@ -29,6 +29,6 @@ namespace FinalProject.DATA.EF
         public byte ReservationLimit { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservations> Reservations { get; set; }
     }
 }

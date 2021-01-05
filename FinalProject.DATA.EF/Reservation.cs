@@ -12,7 +12,7 @@ namespace FinalProject.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Reservation
+    public partial class Reservations
     {
         public int ReservationId { get; set; }
         public int OwnerAssetId { get; set; }
