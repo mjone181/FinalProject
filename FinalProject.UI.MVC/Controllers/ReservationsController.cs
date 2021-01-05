@@ -35,6 +35,7 @@ namespace FinalProject.UI.MVC.Controllers
                     LocationId = r.LocationId,
                     ReservationDate = r.ReservationDate
                 }).ToList<ReservationsViewModel>();
+
             return View();
         }
 
