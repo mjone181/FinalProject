@@ -31,24 +31,9 @@ namespace FinalProject.UI.MVC.Controllers
                 Select(r => new ReservationsViewModel()
                 {
                     ReservationId = r.ReservationId,
-                    OwnerAssetId = r.OwnerAssetId,                    
-                    OwnerAssets = new OwnerAssetsViewModel()
-                    {
-                        OwnerAssetId = r.OwnerAssetId,
-                        AssetName = r.OwnerAsset.AssetName,
-                        OwnerId = r.OwnerAsset.OwnerId,
-                        UserDetails = new UserDetailsViewModel()
-                        {
-                            UserId = r.OwnerAsset.UserDetail.UserId,
-                            FirstName = r.OwnerAsset.UserDetail.FirstName,
-                            LastName = r.OwnerAsset.UserDetail.LastName
-                        },
-                        AssetPhoto = r.OwnerAsset.AssetPhoto,
-                        SpecialNotes = r.OwnerAsset.SpecialNotes,
-                        IsActive = r.OwnerAsset.IsActive,
-                        DateAdded = r.OwnerAsset.DateAdded
-                    },
-                    LocationId = r.LocationId
+                    OwnerAssetId = r.OwnerAssetId,                   
+                    LocationId = r.LocationId,
+                    ReservationDate = r.ReservationDate
                 }).ToList<ReservationsViewModel>();
             return View();
         }

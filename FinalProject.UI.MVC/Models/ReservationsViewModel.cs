@@ -10,8 +10,7 @@ namespace FinalProject.UI.MVC.Models
         public int ReservationId { get; set; }
         public int OwnerAssetId { get; set; }
         public int LocationId { get; set; }        
-        public System.DateTime ReservationDate { get; set; }
-        public OwnerAssetsViewModel OwnerAssets { get; set; }
+        public System.DateTime ReservationDate { get; set; }       
     }
 
     public class LocationsViewModel
@@ -33,8 +32,7 @@ namespace FinalProject.UI.MVC.Models
         public string AssetPhoto { get; set; }        
         public string SpecialNotes { get; set; }
         public bool IsActive { get; set; }        
-        public System.DateTime DateAdded { get; set; }
-        public UserDetailsViewModel UserDetails { get; set; }
+        public System.DateTime DateAdded { get; set; }        
     }
 
     public class UserDetailsViewModel
