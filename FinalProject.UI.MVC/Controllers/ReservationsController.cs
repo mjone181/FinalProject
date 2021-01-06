@@ -14,7 +14,7 @@ namespace FinalProject.UI.MVC.Controllers
     public class ReservationsController : Controller
     {
         //Create a new Database Keyword
-        FinalProjectEntities db = new FinalProjectEntities();
+        FinalProjectEntities1 db = new FinalProjectEntities1();
 
         // GET: Reservations
         public ActionResult Index()
@@ -49,7 +49,7 @@ namespace FinalProject.UI.MVC.Controllers
         //POST: Reservations
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReservationId, OwnerAssetId, LocationId, ReservationDate")] Reservations reservation)
+        public ActionResult Create([Bind(Include = "ReservationId, OwnerAssetId, LocationId, ReservationDate")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {

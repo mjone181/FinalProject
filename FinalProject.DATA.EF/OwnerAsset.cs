@@ -17,7 +17,7 @@ namespace FinalProject.DATA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OwnerAsset()
         {
-            this.Reservations = new HashSet<Reservations>();
+            this.Reservations = new HashSet<Reservation>();
         }
     
         public int OwnerAssetId { get; set; }
@@ -30,6 +30,6 @@ namespace FinalProject.DATA.EF
     
         public virtual UserDetail UserDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservations> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

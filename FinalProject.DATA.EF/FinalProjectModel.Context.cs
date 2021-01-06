@@ -13,10 +13,10 @@ namespace FinalProject.DATA.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FinalProjectEntities : DbContext
+    public partial class FinalProjectEntities1 : DbContext
     {
-        public FinalProjectEntities()
-            : base("name=FinalProjectEntities")
+        public FinalProjectEntities1()
+            : base("name=FinalProjectEntities1")
         {
         }
     
@@ -28,7 +28,7 @@ namespace FinalProject.DATA.EF
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<OwnerAsset> OwnerAssets { get; set; }
-        public virtual DbSet<Reservations> Reservations { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace FinalProject.UI.MVC.Controllers
     public class LocationsController : Controller
     {
         //Create a new Database Keyword
-        FinalProjectEntities db = new FinalProjectEntities();
+        FinalProjectEntities1 db = new FinalProjectEntities1();
 
         // GET: Locations
         public ActionResult Index()
