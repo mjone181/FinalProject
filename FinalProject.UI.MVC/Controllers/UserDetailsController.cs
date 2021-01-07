@@ -21,25 +21,11 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: UserDetails
         public ActionResult Index()
         {
+            //Select the Database from SQL Server and show it to the screen.
             var userDetails = (from u in db.UserDetails
                                select u).ToList();
             return View(userDetails);
-        }
-
-        //GET: UserDetails/Details
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserDetail userDetail = db.UserDetails.Find(id);
-            if (userDetail == null)
-            {
-                return HttpNotFound();
-            }
-            return View(userDetail);
-        }
+        }       
 
         public ActionResult UserDetails()
         {
@@ -54,9 +40,28 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
+        //GET: UserDetails/Details
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                //Return Error Message if there is no id.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Grab the id value of UserDetails.
+            UserDetail userDetail = db.UserDetails.Find(id);
+            if (userDetail == null)
+            {
+                //Return an Error Message if there is no userDetail.
+                return HttpNotFound();
+            }
+            return View(userDetail);
+        }
+
         //GET: UserDetails/Create
         public ActionResult Create()
         {
+            //Get UserDetails items by UserId
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "UserDetails");
             return View();
         }
@@ -85,14 +90,18 @@ namespace FinalProject.UI.MVC.Controllers
         {
             if (id == null)
             {
+                //Return Error Message if there is no id.
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Grab the id value of UserDetails.
             UserDetail userDetail = db.UserDetails.Find(id);
             if (userDetail == null)
             {
+                //Return an Error Message if there is no userDetail.
                 return HttpNotFound();
             }
 
+            //Grab the data and throw it to the screen.
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "UserId", userDetail.UserId);
             return View(userDetail);
         }
@@ -103,11 +112,13 @@ namespace FinalProject.UI.MVC.Controllers
         public ActionResult Edit([Bind(Include = "UserId, FirstName, LastName")]
         UserDetail userDetail)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                //Return Error Message if Model State isn't valid.
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            //Update the current state of the selected instance and return it to the screen.
             db.Entry(userDetail).State = EntityState.Modified;
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "UserId", userDetail.UserId);
             return View(userDetail);
@@ -119,27 +130,35 @@ namespace FinalProject.UI.MVC.Controllers
         {
             if (id == null)
             {
+                //Return Error Message if there is no id.
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Grab the id value of UserDetails.
             UserDetail userDetail = db.UserDetails.Find(id);
             if (userDetail == null)
             {
+                //Return an Error Message if there is no userDetail.
                 return HttpNotFound();
             }
+            //Return the data to the screen.
             return View(userDetail);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         //POST: UserDetails/Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]        
         public ActionResult DeleteConfirmed(int id)
         {
+            //Grab the id value of UserDetails.
             UserDetail userDetail = db.UserDetails.Find(id);
+            
+            //Remove the current instance of UserDetails and save the changes. Send user back to Index afterwards.
             db.UserDetails.Remove(userDetail);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        //Make sure the instance is actually deleted permanently.
         protected override void Dispose(bool disposing)
         {
             if (disposing)
