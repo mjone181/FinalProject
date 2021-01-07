@@ -291,20 +291,26 @@
     <Content Include="_Archive\templated-swarming\fonts\fontawesome-webfont.woff" />
     <Content Include="_Archive\templated-swarming\fonts\FontAwesome.otf" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\OwnerAssets\Create.cshtml" />
-    <Content Include="Views\Reservations\Create.cshtml" />
     <Content Include="Views\UserDetails\Index.cshtml" />
     <Content Include="Views\UserDetails\Create.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
-    <Content Include="Views\Locations\Create.cshtml" />
     <Content Include="Views\OwnerAssets\Index.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\UserDetails\Delete.cshtml" />
     <Content Include="Views\UserDetails\Edit.cshtml" />
     <Content Include="Views\UserDetails\Details.cshtml" />
     <Content Include="Views\Reservations\Details.cshtml" />
-    <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Delete.cshtml" />
+    <Content Include="Views\OwnerAssets\Details.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
+    <Content Include="Views\Reservations\Edit.cshtml" />
+    <Content Include="Views\OwnerAssets\Create.cshtml" />
+    <Content Include="Views\OwnerAssets\Edit.cshtml" />
+    <Content Include="Views\OwnerAssets\Delete.cshtml" />
+    <Content Include="Views\Locations\Create.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\Locations\Edit.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

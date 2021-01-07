@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 //Getting access to the Models to make this Controller work
 using FinalProject.UI.MVC.Models;
+//Need these to make Edit Views possible.
+using System.Net;
+using System.Data.Entity;
 
 namespace FinalProject.UI.MVC.Controllers
 {
@@ -41,14 +44,32 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
-        //GET
+        //GET: OwnerAssets/Details        
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                //Return Error Message if there is no id.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Grab the id value of OwnerAssets.
+            OwnerAsset ownerAsset = db.OwnerAssets.Find(id);
+            if (ownerAsset == null)
+            {
+                //Return an Error Message if there is no ownerAsset.
+                return HttpNotFound();
+            }
+            return View(ownerAsset);
+        }
+
+        //GET: OwnerAssets/Create
         public ActionResult Create()
         {
             ViewBag.OwnerAssetId = new SelectList(db.OwnerAssets, "OwnerAssetId", "OwnerAssets");
             return View();
         }
 
-        //POST
+        //POST: OwnerAssets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "OwnerAssetId, AssetName, OwnerId, AssetPhoto, SpecialNotes, IsActive, DateAdded")] OwnerAsset ownerAsset)
@@ -64,6 +85,87 @@ namespace FinalProject.UI.MVC.Controllers
             //Grabbing the newly entered data and showing it to the screen.
             ViewBag.OwnerAssetId = new SelectList(db.OwnerAssets,"OwnerAssetId", "OwnerAssetId", ownerAsset.OwnerAssetId);
             return View(ownerAsset);
+        }
+
+        // GET: OwnerAssets/Edit
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                //Return Error Message if there is no id.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Grab the id value of OwnerAssets.
+            OwnerAsset ownerAsset = db.OwnerAssets.Find(id);
+            if (ownerAsset == null)
+            {
+                //Return an Error Message if there is no ownerAsset.
+                return HttpNotFound();
+            }
+
+            //Grab the data and throw it to the screen.
+            ViewBag.OwnerAssetId = new SelectList(db.OwnerAssets, "OwnerAssetId", "OwnerAssetId", ownerAsset.OwnerAssetId);
+            return View(ownerAsset);
+        }
+
+        //POST: OwnerAssets/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "OwnerAssetId, AssetName, OwnerId, AssetPhoto, SpecialNotes, IsActive, DateAdded")] OwnerAsset ownerAsset)
+        {
+            if (!ModelState.IsValid)
+            {
+                //Return Error Message if Model State isn't valid.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Update the current state of the selected instance and return it to the screen.
+            db.Entry(ownerAsset).State = EntityState.Modified;
+            ViewBag.OwnerAssetId = new SelectList(db.Reservations, "OwnerAssetId", "OwnerAssetId", ownerAsset.OwnerAssetId);
+            return View(ownerAsset);
+        }
+
+        //GET: OwnerAssets/Delete
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                //Return Error Message if there is no id.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Grab the id value of OwnerAssets
+           OwnerAsset ownerAsset = db.OwnerAssets.Find(id);
+            if (ownerAsset == null)
+            {
+                //Return an Error Message if there is no ownerAsset.
+                return HttpNotFound();
+            }
+            //Return the data to the screen.
+            return View(ownerAsset);
+        }
+
+        //POST: Reservations/Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            //Grab the id value of OwnerAssets.
+            OwnerAsset ownerAsset = db.OwnerAssets.Find(id);
+
+            //Remove the current instance of OwnerAssets and save the changes. Send user back to Index afterwards.
+            db.OwnerAssets.Remove(ownerAsset);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //Make sure the instance is actually deleted permanently.
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

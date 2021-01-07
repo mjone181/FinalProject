@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using FinalProject.UI.MVC.Models;
 //Accessing the Data Layer to bring our Data into the UI Layer
 using FinalProject.DATA.EF;
+//Need these to make Edit Views possible.
+using System.Net;
+using System.Data.Entity;
 
 namespace FinalProject.UI.MVC.Controllers
 {
@@ -25,7 +28,7 @@ namespace FinalProject.UI.MVC.Controllers
 
         public ActionResult Locations()
         {
-            //Link to SQL Database with UserDetailsViewModel
+            //Link to SQL Database with LocationsViewModel
             List<LocationsViewModel> locations = db.Locations.
                 Select(l => new LocationsViewModel()
                 {
@@ -40,14 +43,32 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
-        //GET
+        //GET: Locations/Details        
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                //Return Error Message if there is no id.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Grab the id value of Locations.
+            Location location = db.Locations.Find(id);
+            if (location == null)
+            {
+                //Return an Error Message if there is no ownerAsset.
+                return HttpNotFound();
+            }
+            return View(location);
+        }
+
+        //GET: Locations/Create
         public ActionResult Create()
         {
             ViewBag.UserId = new SelectList(db.Locations, "LoactionId", "Locations");
             return View();
         }
 
-        //POST: Locations
+        //POST: Locations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LocationId, LocationName, Address, City, State, ZipCode, ReservationLimit")] Location location)
@@ -60,8 +81,89 @@ namespace FinalProject.UI.MVC.Controllers
             }
 
             //Grabbing the newly entered data and showing it to the screen.
-            ViewBag.OwnerAssetId = new SelectList(db.Locations, "LocationId", "LocationId", location.LocationId);
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationId", location.LocationId);
             return View(location);
+        }
+
+        //GET: Locations/Edit
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                //Return Error Message if there is no id.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Grab the id value of Locations.
+            Location location = db.Locations.Find(id);
+            if (location == null)
+            {
+                //Return an Error Message if there is no location.
+                return HttpNotFound();
+            }
+
+            //Grab the data and throw it to the screen.
+            ViewBag.LocationId = new SelectList(db.Locations, "OwnerAssetId", "OwnerAssetId", location.LocationId);
+            return View(location);
+        }
+
+        //POST: Locations/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "LocationId, LocationName, Address, City, State, ZipCode, ReservationLimit")] Location location)
+        {
+            if (!ModelState.IsValid)
+            {
+                //Return Error Message if Model State isn't valid.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Update the current state of the selected instance and return it to the screen.
+            db.Entry(location).State = EntityState.Modified;
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationId", location.LocationId);
+            return View(location);
+        }
+
+        //GET: Locations/Delete
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                //Return Error Message if there is no id.
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Grab the id value of Locations
+            Location location = db.Locations.Find(id);
+            if (location == null)
+            {
+                //Return an Error Message if there is no location.
+                return HttpNotFound();
+            }
+            //Return the data to the screen.
+            return View(location);
+        }
+
+        //POST: Reservations/Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            //Grab the id value of Locations.
+            Location location = db.Locations.Find(id);
+
+            //Remove the current instance of Locations and save the changes. Send user back to Index afterwards.
+            db.Locations.Remove(location);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //Make sure the instance is actually deleted permanently.
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

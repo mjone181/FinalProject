@@ -104,7 +104,7 @@ namespace FinalProject.UI.MVC.Controllers
             }
 
             //Grab the data and throw it to the screen.
-            ViewBag.UserId = new SelectList(db.Reservations, "ReservationId", "ReservationId", reservation.ReservationId);
+            ViewBag.ReservationId = new SelectList(db.Reservations, "ReservationId", "ReservationId", reservation.ReservationId);
             return View(reservation);
         }
 
@@ -122,7 +122,7 @@ namespace FinalProject.UI.MVC.Controllers
 
             //Update the current state of the selected instance and return it to the screen.
             db.Entry(reservation).State = EntityState.Modified;
-            ViewBag.UserId = new SelectList(db.Reservations, "ReservationId", "ReservationId", reservation.ReservationId);
+            ViewBag.ReservationId = new SelectList(db.Reservations, "ReservationId", "ReservationId", reservation.ReservationId);
             return View(reservation);
         }
 
