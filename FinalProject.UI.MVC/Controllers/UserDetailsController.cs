@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 //Getting access to the Models to make this Controller work
 using FinalProject.UI.MVC.Models;
+//Need these to make Edit Views possible.
+using System.Net;
+using System.Data.Entity;
 
 namespace FinalProject.UI.MVC.Controllers
 {
@@ -14,7 +17,7 @@ namespace FinalProject.UI.MVC.Controllers
     {
         //Create a new Database Keyword
         FinalProjectEntities1 db = new FinalProjectEntities1();
-        
+
         // GET: UserDetails
         public ActionResult Index()
         {
@@ -58,7 +61,77 @@ namespace FinalProject.UI.MVC.Controllers
 
             //Grabbing the newly entered data and showing it to the screen.
             ViewBag.OwnerAssetId = new SelectList(db.UserDetails, "UserId", "UserId", userDetail.UserId);
-            return View(userDetail);            
+            return View(userDetail);
+
+        }
+
+        // GET: UserDetails/Edit
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserDetail userDetail = db.UserDetails.Find(id);
+            if (userDetail == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "UserId", userDetail.UserId);
+            return View(userDetail);
+        }
+
+        //POST: UserDetails/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "UserId, FirstName, LastName")]
+        UserDetail userDetail)
+        {
+            if (ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            db.Entry(userDetail).State = EntityState.Modified;
+            ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "UserId", userDetail.UserId);
+            return View(userDetail);
+        }
+
+
+        //GET: UserDetails/Delete
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserDetail userDetail = db.UserDetails.Find(id);
+            if (userDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(userDetail);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        //POST: UserDetails/Delete
+        public ActionResult DeleteConfirmed(int id)
+        {
+            UserDetail userDetail = db.UserDetails.Find(id);
+            db.UserDetails.Remove(userDetail);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
