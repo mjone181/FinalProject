@@ -39,7 +39,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
-        //GET
+        //GET: UserDetails/Create
         public ActionResult Create()
         {
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "UserDetails");
