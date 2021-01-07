@@ -18,7 +18,7 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Locations
         public ActionResult Index()
         {
-            var locations = (from l in db.UserDetails
+            var locations = (from l in db.Locations
                                select l).ToList();
             return View(locations);
         }

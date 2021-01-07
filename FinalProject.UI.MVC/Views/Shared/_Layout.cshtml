@@ -32,22 +32,22 @@ Released   : 20131201
     <div id="logo">
         <h1><a href="#" class="icon icon-group"><span>Swarming</span></a></h1>
     </div>
-    
+
     <!--Swarming Nav Content-->
     <div id="header">
         <div id="menu" class="container">
             <ul>
                 <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
-                <li><a href="#" accesskey="1" title="">Services</a></li>
+                <li><a href="@Url.Action("Index", "Locations")" accesskey="1" title="Locations"></a></li>
                 <li><a href="#" accesskey="2" title="">Our Clients</a></li>
                 <li><a href="#" accesskey="3" title="">About Us</a></li>
                 <li><a href="#" accesskey="4" title="">Careers</a></li>
                 <li><a href="#" accesskey="5" title="">Contact Us</a></li>
             </ul>
         </div>
-    </div>    
+    </div>  
 
-   @RenderBody()
+    @RenderBody()
 
     <!--Swarming Footer Content-->
     <div id="copyright" class="container">
