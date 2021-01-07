@@ -301,6 +301,7 @@
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\UserDetails\Delete.cshtml" />
     <Content Include="Views\UserDetails\Edit.cshtml" />
+    <Content Include="Views\UserDetails\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

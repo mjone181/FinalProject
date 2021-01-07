@@ -26,6 +26,21 @@ namespace FinalProject.UI.MVC.Controllers
             return View(userDetails);
         }
 
+        //GET: UserDetails/Details
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserDetail userDetail = db.UserDetails.Find(id);
+            if (userDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(userDetail);
+        }
+
         public ActionResult UserDetails()
         {
             //Link to SQL Database with UserDetailsViewModel
@@ -46,7 +61,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
-        //POST: UserDetails
+        //POST: UserDetails/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId, FirstName, LastName")] UserDetail userDetail)
