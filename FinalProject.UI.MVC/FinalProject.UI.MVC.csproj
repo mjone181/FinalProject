@@ -208,6 +208,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="_Archive\responsive-table\css\style.css" />
+    <Content Include="_Archive\responsive-table\index.html" />
+    <Content Include="_Archive\responsive-table\license.txt" />
+    <Content Include="_Archive\responsive-table\README.txt" />
     <Content Include="_Archive\templated-swarming\default.css" />
     <Content Include="_Archive\templated-swarming\fonts.css" />
     <Content Include="_Archive\templated-swarming\fonts\fontawesome-social-webfont.svg" />
@@ -313,6 +317,7 @@
     <Content Include="Views\Locations\Delete.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
+    <Content Include="_Archive\responsive-table\scss\style.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
