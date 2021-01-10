@@ -64,6 +64,7 @@ Released   : 20131201
                 <!--If user is logged in as an Employee Role-->
                 @if (User.IsInRole("Employee"))
                 {
+                    <li><a href="@Url.Action("Index", "Locations")" accesskey="1" title="">Locations</a></li>
                     <li><a href="@Url.Action("Index", "Reservations")" accesskey="3" title="">Reservations</a></li>
                 }
                 <li><a href="@Url.Action("Contact", "Home")" accesskey="5" title="">Contact Us</a></li>
