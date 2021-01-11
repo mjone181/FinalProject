@@ -6,10 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
+@if (User.IsInRole("Owner"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -54,11 +56,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateAdded)
             </td>
+            @if (User.IsInRole("Admin"))
+            {
+
+            }
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.OwnerAssetId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.OwnerAssetId }) |
+                @if (User.IsInRole("Admin"))
+                {
                 @Html.ActionLink("Delete", "Delete", new { id = item.OwnerAssetId })
-            </td>
+                }
+            </td>            
         </tr>
     }
 
