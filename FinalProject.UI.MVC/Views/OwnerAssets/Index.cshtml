@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-
+<!--If user is in an Owner Role-->
 @if (User.IsInRole("Owner"))
 {
     <p>
@@ -63,6 +63,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.OwnerAssetId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.OwnerAssetId }) |
+                <!--If User is in an Admin Role-->
                 @if (User.IsInRole("Admin"))
                 {
                 @Html.ActionLink("Delete", "Delete", new { id = item.OwnerAssetId })

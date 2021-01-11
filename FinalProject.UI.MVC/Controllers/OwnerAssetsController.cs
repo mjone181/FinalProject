@@ -62,6 +62,8 @@ namespace FinalProject.UI.MVC.Controllers
             return View(ownerAsset);
         }
 
+        //Only available in Owner Role.
+        [Authorize(Roles = "Owner")]
         //GET: OwnerAssets/Create
         public ActionResult Create()
         {
@@ -69,6 +71,8 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
+        //Only available in Owner Role.
+        [Authorize(Roles = "Owner")]
         //POST: OwnerAssets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -112,7 +116,7 @@ namespace FinalProject.UI.MVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "OwnerAssetId, AssetName, OwnerId, AssetPhoto, SpecialNotes, IsActive, DateAdded")] OwnerAsset ownerAsset)
-        {
+        {            
             if (!ModelState.IsValid)
             {
                 //Return Error Message if Model State isn't valid.
@@ -120,11 +124,18 @@ namespace FinalProject.UI.MVC.Controllers
             }
 
             //Update the current state of the selected instance and return it to the screen.
-            db.Entry(ownerAsset).State = EntityState.Modified;
+            if (ModelState.IsValid)
+            {
+                db.Entry(ownerAsset).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }            
             ViewBag.OwnerAssetId = new SelectList(db.Reservations, "OwnerAssetId", "OwnerAssetId", ownerAsset.OwnerAssetId);
             return View(ownerAsset);
         }
 
+        //Only available in Admin Role.
+        [Authorize(Roles = "Admin")]
         //GET: OwnerAssets/Delete
         public ActionResult Delete(int? id)
         {
@@ -144,6 +155,8 @@ namespace FinalProject.UI.MVC.Controllers
             return View(ownerAsset);
         }
 
+        //Only available in Admin Role.
+        [Authorize(Roles = "Admin")]
         //POST: Reservations/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

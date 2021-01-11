@@ -18,6 +18,7 @@ namespace FinalProject.UI.MVC.Controllers
         //Create a new Database Keyword
         FinalProjectEntities1 db = new FinalProjectEntities1();
 
+        [Authorize(Roles = "Admin")]
         // GET: UserDetails
         public ActionResult Index()
         {
@@ -40,6 +41,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         //GET: UserDetails/Details
         public ActionResult Details(int? id)
         {
@@ -58,6 +60,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View(userDetail);
         }
 
+        [Authorize(Roles = "Admin")]
         //GET: UserDetails/Create
         public ActionResult Create()
         {
@@ -66,6 +69,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         //POST: UserDetails/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -85,6 +89,7 @@ namespace FinalProject.UI.MVC.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: UserDetails/Edit
         public ActionResult Edit(int? id)
         {
@@ -106,6 +111,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View(userDetail);
         }
 
+        [Authorize(Roles = "Admin")]
         //POST: UserDetails/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,12 +125,18 @@ namespace FinalProject.UI.MVC.Controllers
             }
 
             //Update the current state of the selected instance and return it to the screen.
-            db.Entry(userDetail).State = EntityState.Modified;
+            if (ModelState.IsValid)
+            {
+                db.Entry(userDetail).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "UserId", userDetail.UserId);
             return View(userDetail);
         }
 
-
+        [Authorize(Roles = "Admin")]
         //GET: UserDetails/Delete
         public ActionResult Delete(int? id)
         {
@@ -144,6 +156,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View(userDetail);
         }
 
+        [Authorize(Roles = "Admin")]
         //POST: UserDetails/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]        

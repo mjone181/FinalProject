@@ -61,6 +61,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View(location);
         }
 
+        [Authorize(Roles = "Admin")]
         //GET: Locations/Create
         public ActionResult Create()
         {
@@ -68,6 +69,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         //POST: Locations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -106,6 +108,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View(location);
         }
 
+        
         //POST: Locations/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,11 +121,18 @@ namespace FinalProject.UI.MVC.Controllers
             }
 
             //Update the current state of the selected instance and return it to the screen.
-            db.Entry(location).State = EntityState.Modified;
+            if (ModelState.IsValid)
+            {
+                db.Entry(location).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationId", location.LocationId);
             return View(location);
         }
 
+        [Authorize(Roles = "Admin")]
         //GET: Locations/Delete
         public ActionResult Delete(int? id)
         {
@@ -142,6 +152,7 @@ namespace FinalProject.UI.MVC.Controllers
             return View(location);
         }
 
+        [Authorize(Roles = "Admin")]
         //POST: Reservations/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

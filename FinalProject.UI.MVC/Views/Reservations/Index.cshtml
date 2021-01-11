@@ -40,7 +40,10 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ReservationId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ReservationId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ReservationId })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ReservationId })
+                }
             </td>
         </tr>
     }
