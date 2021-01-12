@@ -10,7 +10,7 @@
 {
     <p>
         @Html.ActionLink("Create New", "Create")
-    </p>
+    </p>    
 }
 <table class="table">
     <tr>
@@ -45,7 +45,8 @@
                 @Html.DisplayFor(modelItem => item.OwnerId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AssetPhoto)
+                @*@Html.DisplayFor(modelItem => item.AssetPhoto)*@
+                <img src="~/Content/images/@item.AssetPhoto" alt="@item.AssetName"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SpecialNotes)
@@ -55,11 +56,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            @if (User.IsInRole("Admin"))
-            {
-
-            }
+            </td>           
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.OwnerAssetId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.OwnerAssetId }) |

@@ -31,7 +31,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AssetPhoto)
+            @*@Html.DisplayFor(model => model.AssetPhoto)*@
+            <img src="~/Content/images/@Model.AssetPhoto" alt="@Model.AssetName"/>
         </dd>
 
         <dt>

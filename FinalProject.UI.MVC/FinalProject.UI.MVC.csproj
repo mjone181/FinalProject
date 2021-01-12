@@ -187,6 +187,7 @@
     <Compile Include="Models\ReservationsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\UploadUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -199,11 +200,20 @@
     <Content Include="Content\fonts.css" />
     <Content Include="Content\fonts\fontawesome-social-webfont.svg" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\images\32d6afb5-93da-4069-a1bf-fa8893d862ed.jpg" />
+    <Content Include="Content\images\4b5e926d-04ff-43bb-8796-3bbe4b3cb7d3.jpg" />
+    <Content Include="Content\images\a4f04329-7861-4d5e-87d2-a0ec6c5af76b.jpg" />
+    <Content Include="Content\images\a63406e2-0990-4575-be97-8f933a2e85fc.jpg" />
+    <Content Include="Content\images\a6a5dfa2-f70e-4689-a5e9-f2a0041a03fc.jpg" />
+    <Content Include="Content\images\dc7bb281-b8ed-4f15-9685-47d709c64dd3.jpg" />
+    <Content Include="Content\images\GenericHotelImage.jpg" />
     <Content Include="Content\images\pic01.jpg" />
     <Content Include="Content\images\pic02.jpg" />
     <Content Include="Content\images\pic03.jpg" />
     <Content Include="Content\images\pic04.jpg" />
     <Content Include="Content\images\pic05.jpg" />
+    <Content Include="Content\images\t_a4f04329-7861-4d5e-87d2-a0ec6c5af76b.jpg" />
+    <Content Include="Content\images\t_dc7bb281-b8ed-4f15-9685-47d709c64dd3.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

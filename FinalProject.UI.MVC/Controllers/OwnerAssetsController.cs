@@ -10,6 +10,9 @@ using FinalProject.UI.MVC.Models;
 //Need these to make Edit Views possible.
 using System.Net;
 using System.Data.Entity;
+//Need these to actually make an Image show up
+using System.Drawing;
+using FinalProject.UI.MVC.Utilities;
 
 namespace FinalProject.UI.MVC.Controllers
 {
@@ -43,7 +46,7 @@ namespace FinalProject.UI.MVC.Controllers
 
             return View();
         }
-
+        
         //GET: OwnerAssets/Details        
         public ActionResult Details(int? id)
         {
@@ -76,8 +79,54 @@ namespace FinalProject.UI.MVC.Controllers
         //POST: OwnerAssets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OwnerAssetId, AssetName, OwnerId, AssetPhoto, SpecialNotes, IsActive, DateAdded")] OwnerAsset ownerAsset)
+        public ActionResult Create([Bind(Include = "OwnerAssetId, AssetName, OwnerId, AssetPhoto, SpecialNotes, IsActive, DateAdded")] OwnerAsset ownerAsset, HttpPostedFileBase AssetPhoto)
         {
+            #region File Upload
+            if (ModelState.IsValid)
+            {
+                //Use default image if none is provided.
+                string imgName = "noImage.png";
+                if (AssetPhoto != null) //HttpPostedFileBase added to the action != null
+                {
+                    //Get image and return to variable.
+                    imgName = AssetPhoto.FileName;
+
+                    //Declare and assign ext variable.
+                    string ext = imgName.Substring(imgName.LastIndexOf('.'));
+
+                    //Declare a list of valid extensions.
+                    string[] goodExts = { ".jpeg", ".jpg", ".gif", ".png" };
+
+                    //Check the ext variable (toLower()) against the valid list.
+                    if (goodExts.Contains(ext.ToLower()) && (AssetPhoto.ContentLength <= 4194304))//Max 4MB value allowed by ASP.net
+                    {
+                        //If it is in the list using a guid
+                        imgName = Guid.NewGuid() + ext;
+
+                        //save to the webserver
+                        AssetPhoto.SaveAs(Server.MapPath("~/Content/images/" + imgName));
+
+                        //Create variables to resize image.
+                        string savePath = Server.MapPath("~/Content/images/");
+
+                        Image convertedImage = Image.FromStream(AssetPhoto.InputStream);
+
+                        int maxImgSize = 500;
+                        int maxThumbSize = 100;
+
+                        UploadUtility.ResizeImage(savePath, imgName, convertedImage, maxImgSize, maxThumbSize);
+                    }
+                    else
+                    {
+                        imgName = "noImage.png";
+                    }
+
+                    //No matter what, add imgName to the object.
+                    ownerAsset.AssetPhoto = imgName;
+                }
+
+            }
+            #endregion  
             if (ModelState.IsValid)
             {
                 //Add a new OwnerAsset to the database with a View if Model is valid
@@ -115,8 +164,53 @@ namespace FinalProject.UI.MVC.Controllers
         //POST: OwnerAssets/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OwnerAssetId, AssetName, OwnerId, AssetPhoto, SpecialNotes, IsActive, DateAdded")] OwnerAsset ownerAsset)
-        {            
+        public ActionResult Edit([Bind(Include = "OwnerAssetId, AssetName, OwnerId, AssetPhoto, SpecialNotes, IsActive, DateAdded")] OwnerAsset ownerAsset, HttpPostedFileBase AssetPhoto)
+        {
+            #region File Upload
+            if (AssetPhoto != null)//HttpPostedFileBase added to the action != null
+            {
+                //Get image and assign to variable
+                string imgName = AssetPhoto.FileName;
+
+                //Declare and assign ext value
+                string ext = imgName.Substring(imgName.LastIndexOf('.'));
+
+                //Declare a list of valid extensions.
+                string[] goodExts = { ".jpeg", ".jpg", ".gif", ".png" };
+
+                //Check the ext value (toLower()) against the valid list
+                if (goodExts.Contains(ext.ToLower()) && (AssetPhoto.ContentLength <= 4194304))//4MB max allowed by ASP.NET
+                {
+                    //If it is in the list rename using a guid
+                    imgName = Guid.NewGuid() + ext;
+
+                    //Save to the webserver
+                    AssetPhoto.SaveAs(Server.MapPath("~/Content/images/" + imgName));
+
+                    //Create variables to resize image.
+                    string savePath = Server.MapPath("~/Content/images/");
+
+                    Image convertedImage = Image.FromStream(AssetPhoto.InputStream);
+
+                    int maxImgSize = 500;
+                    int maxThumbSize = 100;
+
+                    UploadUtility.ResizeImage(savePath, imgName, convertedImage, maxImgSize, maxThumbSize);
+
+                    //Make sure you are not deleting your default image.
+                    if (ownerAsset.AssetPhoto != null && ownerAsset.AssetPhoto != "GenericHotelImage.jpg")
+                    {
+                        //Remove the original file
+                        string path = Server.MapPath("~/Content/images/");
+                        UploadUtility.Delete(path, ownerAsset.AssetPhoto);
+                    }
+
+                    //Only save if image meets criteria imageName to the object.
+                    ownerAsset.AssetPhoto = imgName;
+                }
+
+            }
+            #endregion
             if (!ModelState.IsValid)
             {
                 //Return Error Message if Model State isn't valid.
@@ -164,6 +258,13 @@ namespace FinalProject.UI.MVC.Controllers
         {
             //Grab the id value of OwnerAssets.
             OwnerAsset ownerAsset = db.OwnerAssets.Find(id);
+            
+            if (ownerAsset.AssetPhoto != null && ownerAsset.AssetPhoto != "noImage.jpg")
+                {
+                    //Remove the original file from the edit view.
+                    string path = Server.MapPath("~/Content/images/");
+                    UploadUtility.Delete(path, ownerAsset.AssetPhoto);
+                }
 
             //Remove the current instance of OwnerAssets and save the changes. Send user back to Index afterwards.
             db.OwnerAssets.Remove(ownerAsset);
