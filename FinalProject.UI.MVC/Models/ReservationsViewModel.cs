@@ -10,7 +10,8 @@ namespace FinalProject.UI.MVC.Models
         public int ReservationId { get; set; }
         public int OwnerAssetId { get; set; }
         public int LocationId { get; set; }        
-        public System.DateTime ReservationDate { get; set; }       
+        public System.DateTime ReservationDate { get; set; } 
+        public LocationsViewModel Locations { get; set; }
     }
 
     public class LocationsViewModel

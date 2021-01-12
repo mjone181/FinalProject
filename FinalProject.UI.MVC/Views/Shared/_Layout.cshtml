@@ -44,8 +44,13 @@ Released   : 20131201
 
     <!--Swarming Nav Content-->
     <div id="header">
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
         <div id="menu" class="container">
-            <ul>
+            <ul class="nav-links">
                 <li><a href="@Url.Action("Index", "Home")" accesskey="1" title="">Homepage</a></li>
                 <!--If user is logged in as an Admin Role-->
                 @if (User.IsInRole("Admin"))
@@ -71,8 +76,10 @@ Released   : 20131201
                 }
                 <li><a href="@Url.Action("Contact", "Home")" accesskey="5" title="">Contact Us</a></li>
                 @Html.Partial("_LoginPartial")
+
             </ul>
         </div>
+
     </div>
 
     @RenderBody()
