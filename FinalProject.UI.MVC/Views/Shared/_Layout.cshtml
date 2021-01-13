@@ -62,6 +62,7 @@ Released   : 20131201
                     <li><a href="@Url.Action("Index", "UserDetails")" accesskey="4" title="">User Details</a></li>
                     <li><a href="@Url.Action("Index", "RolesAdmin")" accesskey="6" title="">Role Configuration</a></li>
                     <li><a href="@Url.Action("Index", "UsersAdmin")" accesskey="7" title="">User Configuration</a></li>
+                    <li><a href="@Url.Content("~/Content/MackJonesDocumentation.pdf")" target="_blank">Project Documentation</a></li>
                 }
                 <!--If user is logged in as an Owner Role-->
                 @if (User.IsInRole("Owner"))
